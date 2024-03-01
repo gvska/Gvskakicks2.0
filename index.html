@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Odliczanie do 1 kwietnia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: black;
+      color: white;
+      font-family: 'Playfair Display', serif; /* Zmiana czcionki */
+      flex-direction: column;
+    }
+
+    #countdown {
+      font-size: 48px;
+      text-align: center;
+      white-space: nowrap;
+      letter-spacing: 20px;
+      margin-top: 20px;
+    }
+
+    #imageContainer {
+      margin-top: 10px;
+    }
+
+    #logoImage {
+      width: 400px; /* Dostosuj szerokość obrazka według potrzeb */
+      height: auto; /* Automatyczne dostosowanie wysokości do zachowania proporcji */
+    }
+
+    #comingText {
+      font-size: 24px;
+      text-align: center;
+      color: #ccc;
+      margin-top: 10px;
+      animation: fadeIn 3s ease-in-out infinite;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      25% {
+        opacity: 1;
+      }
+      75% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="imageContainer">
+  <img id="logoImage" src="gvska-long2.png" alt="logo">
+</div>
+<div id="countdown"></div>
+<div id="comingText">New is coming...</div>
+
+<script>
+  // Ustaw docelową datę na 1 kwietnia
+  var targetDate = new Date('2024-04-01T00:00:00Z').getTime();
+
+  var countdownElement = document.getElementById('countdown');
+
+  function updateCountdown() {
+    var currentDate = new Date().getTime();
+    var timeDifference = targetDate - currentDate;
+
+    var days = Math.floor(timeDifference / (24 * 60 * 60 * 1000));
+    var hours = Math.floor((timeDifference % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+    var minutes = Math.floor((timeDifference % (60 * 60 * 1000)) / (60 * 1000));
+    var seconds = Math.floor((timeDifference % (60 * 1000)) / 1000);
+
+    // Ustaw tekst w elemencie HTML z dodatkowymi odstępami między literami
+    countdownElement.innerHTML = days + " | " + hours + " | " + minutes + " | " + seconds;
+
+    // Zatrzymaj odliczanie, gdy osiągnięty zostanie czas zerowy
+    if (timeDifference < 0) {
+      clearInterval(countdownInterval);
+      countdownElement.textContent = "Czas minął!";
+    }
+  }
+
+  // Uruchom funkcję odliczania co sekundę
+  var countdownInterval = setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
